@@ -55,22 +55,24 @@
         };
 
         const popupTemplate = {
-    title: "{Name}",
-    content: "{Description}"
- }
- const attributes = {
-    Name: "San Francisco Shopping Area",
-    Description: "The store I marked in my first lab: AP USA"
- }
+          title: "{Name}",
+          content: `
+            <p>{Description}</p>
+            <img src="Kearny_St._San_Francisco_California_-_panoramio.jpg" alt="Kearny St. San Francisco" style="width:100%;height:auto;">
+          `
+        };
+
+        const attributes = {
+          Name: "Downtown San Francisco Shopping Area",
+          Description: "The store I marked in my first lab: Angelic Pretty USA"
+        };
 
         // Create a graphic and add the geometry and symbol to it
         const pointGraphic = new Graphic({
           geometry: point,
           symbol: simplemarkerSymbol,
-
           attributes: attributes,
           popupTemplate: popupTemplate
-          
         });
 
         // Add the graphics to the graphics layer
