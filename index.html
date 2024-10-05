@@ -37,47 +37,6 @@
         const graphicsLayer = new GraphicsLayer();
         map.add(graphicsLayer);
 
-        // Create a line geometry with the coordinates of the line
-        const polyline = {
-        type: "polyline", // autocasts as new Polyline()
-        paths: [[37.790794, -122.404078], [37.787965, -122.403515], [37.792652, -122.404453]]
-          };
-
-        // Create a simple line symbol for rendering the line in the view
-        const lineSymbol = {
-        type: "simple-line", // autocasts as new SimpleLineSymbol()
-        color: [139, 0, 0], // RGB color values as an array
-        width: 4
-          };
-
-        // Create the graphic
-        const polylineGraphic = new Graphic({
-        geometry: polyline, // Add the geometry created in step 4
-        symbol: lineSymbol, // Add the symbol created in step 5
-        popupTemplate: {
-        title: "{Name}",
-        content: [
-        {
-          type: "fields",
-          fieldInfos: [
-            {
-              fieldName: "Name"
-            },
-            {
-              fieldName: "Owner"
-            },
-            {
-              fieldName: "Length"
-            }
-          ]
-        }
-      ]
-    }
-  });
-
-        // Add the graphic to the view's default graphics view
-        view.graphics.add(polylineGraphic);
-
         // Create a point geometry
         const point = {
           type: "point",
@@ -120,6 +79,7 @@
         // Add the graphics to the graphics layer
         graphicsLayer.add(pointGraphic);
         });
+        
   </script>
 
   <!-- css to make a full screen map -->
