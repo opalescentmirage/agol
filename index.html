@@ -33,6 +33,10 @@
           container: "viewDiv" // Div element
         });
 
+        // Create a GraphicsLayer
+        const graphicsLayer = new GraphicsLayer();
+        map.add(graphicsLayer);
+
         // Create a line geometry with the coordinates of the line
         const polyline = {
         type: "polyline", // autocasts as new Polyline()
@@ -71,12 +75,8 @@
     }
   });
 
-  // Add the graphic to the view's default graphics view
-  view.graphics.add(polylineGraphic);
-
-        // Create a GraphicsLayer
-        const graphicsLayer = new GraphicsLayer();
-        map.add(graphicsLayer);
+        // Add the graphic to the view's default graphics view
+        view.graphics.add(polylineGraphic);
 
         // Create a point geometry
         const point = {
