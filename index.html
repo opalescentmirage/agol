@@ -28,12 +28,12 @@
 
       const view = new MapView({
           map: map,
-            center: [-122.4194, 37.7749], // Longitude, latitude of San Francisco
-          zoom: 13, // Zoom level
+            center: [0,0], // Longitude, latitude of San Francisco
+          zoom: 3, // Zoom level
           container: "viewDiv" // Div element
         });
 
-        // First create a line geometry (this is the Keystone pipeline)
+        // First create a line geometry (this is Kearny Street in San Francisco)
   const polyline = {
     type: "polyline", // autocasts as new Polyline()
     paths: [[37.792652, -122.404453], [37.790794, -122.404078], [37.787965, -122.403515]]
@@ -50,7 +50,7 @@
   const lineAtt = {
     Name: "Kearny Street",
     Owner: "California",
-    Length: "As long as your dreams allow"
+    Length: "1.2 miles"
   };
 
   const polylineGraphic = new Graphic({
