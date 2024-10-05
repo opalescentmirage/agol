@@ -36,21 +36,21 @@
         // First create a line geometry (this is the Keystone pipeline)
   const polyline = {
     type: "polyline", // autocasts as new Polyline()
-    paths: [[-111.3, 52.68], [-98, 49.5], [-93.94, 29.89]]
+    paths: [[37.792652, -122.404453], [37.790794, -122.404078], [37.787965, -122.403515]]
   };
 
   // Create a symbol for drawing the line
   const lineSymbol = {
     type: "simple-line", // autocasts as SimpleLineSymbol()
-    color: [226, 119, 40],
+    color: [0, 0, 128],
     width: 4
   };
 
   // Create an object for storing attributes related to the line
   const lineAtt = {
-    Name: "Keystone Pipeline",
-    Owner: "TransCanada",
-    Length: "3,456 km"
+    Name: "Kearny Street",
+    Owner: "California",
+    Length: "As long as your dreams allow"
   };
 
   const polylineGraphic = new Graphic({
