@@ -16,8 +16,10 @@
     require([
      "esri/config",
       "esri/Map",
-      "esri/views/MapView"
-    ], function (esriConfig,Map, MapView) {
+      "esri/views/MapView",
+      "esri/layers/GraphicsLayer",
+      "esri/Graphic"
+    ], function (esriConfig,Map, MapView, GraphicsLayer, Graphic) {
 
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurEBCF4Df63a-YurcgYiKsA257-YwJjUZ7VmQmAf85Pv0s_EugjZNpILdzuTGz5_niIqE_mzayhjw24rnHm6Pdw8JaycqArdv2eX03OS-opbH-AIGcrqcYehVIiBC0ZYFXZW3ZhFbVTTRBaXdq4wI0mQ3YUABZAX6ZXoPdTYnx3d_ySFymzZjYbo5JIEaGqrkE8VRBIk5AHyuqzYKhbg1g5c.AT1_4I1ezPDs";
       const map = new Map({
@@ -30,6 +32,36 @@
           zoom: 13, // Zoom level
           container: "viewDiv" // Div element
         });
+        // Create a GraphicsLayer
+        const graphicsLayer = new GraphicsLayer();
+        map.add(graphicsLayer);
+
+        // Create a point geometry
+        const point = {
+          type: "point",
+          longitude: -122.403668, //long lat of AP USA
+          latitude: 37.788126
+        };
+
+        // Create a symbol for drawing the point
+        const simplemarkerSymbol = {
+          type: "simple-marker",
+            color: [255, 182, 193], // Light Pink
+          outline: {
+            color: [114, 47, 55], // Wine
+            width: 1
+          }
+        };
+
+        // Create a graphic and add the geometry and symbol to it
+        const pointGraphic = new Graphic({
+          geometry: point,
+          symbol: simplemarkerSymbol
+        });
+
+        // Add the graphics to the graphics layer
+        graphicsLayer.add(pointGraphic);
+
     });
   </script>
 
