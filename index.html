@@ -82,6 +82,47 @@
   // Add the line graphic to the view's GraphicsLayer
   view.graphics.add(polylineGraphic);
 
+    // Create a polygon geometry
+    const polygon = {
+    type: "polygon",
+    rings: [
+        [-122.420701, 37.808258], //Longitude, latitude
+        [-122.398108, 37.799543], //Longitude, latitude
+        [-122.412831, 37.792100], //Longitude, latitude
+        [-122.426879, 37.796531],  //Longitude, latitude
+        [-122.424540, 37.805737]  //Longitude, latitude
+      ]
+    };
+
+        const simpleFillSymbol = {
+        type: "simple-fill",
+        color: [135, 206, 235, 0.8],  // Sky blue, opacity 80%
+        outline: {
+        color: [128, 0, 128],
+        width: 1
+        }
+    };
+
+    const polygonPopupTemplate = {
+    title: "{Name}",
+    content: "{Description}"
+    }
+
+    const polygonAttributes = {
+    Name: "Graphic",
+    Description: "I am a polygon"
+    }
+
+    const polygonGraphic = new Graphic({
+    geometry: polygon,
+    symbol: simpleFillSymbol,
+
+    attributes: polygonAttributes,
+    popupTemplate: popupTemplate
+
+    });
+    graphicsLayer.add(polygonGraphic);
+
         // Create a GraphicsLayer
         const graphicsLayer = new GraphicsLayer();
         map.add(graphicsLayer);
@@ -104,7 +145,7 @@
           }
         };
 
-        const popupTemplate = {
+        const pointPopupTemplate = {
           title: "{Name}",
           content: `
             <p>{Description}</p>
@@ -112,7 +153,7 @@
           `
         };
 
-        const attributes = {
+        const pointAttributes = {
           Name: "Downtown San Francisco Shopping Area",
           Description: "The store I marked in my first lab: Angelic Pretty USA"
         };
