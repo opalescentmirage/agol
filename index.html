@@ -89,7 +89,7 @@
         [-122.420701, 37.808258], //Longitude, latitude
         [-122.398108, 37.799543], //Longitude, latitude
         [-122.412831, 37.792100], //Longitude, latitude
-        [-122.426879, 37.796531],  //Longitude, latitude
+        [-122.426879, 37.796531], //Longitude, latitude
         [-122.424540, 37.805737]  //Longitude, latitude
       ]
     };
@@ -103,25 +103,12 @@
         }
     };
 
-    const polygonPopupTemplate = {
-    title: "{Name}",
-    content: "{Description}"
-    }
-
-    const polygonAttributes = {
-    Name: "Graphic",
-    Description: "I am a polygon"
-    }
-
     const polygonGraphic = new Graphic({
     geometry: polygon,
     symbol: simpleFillSymbol,
 
-    attributes: polygonAttributes,
-    popupTemplate: popupTemplate
-
-    });
-    graphicsLayer.add(polygonGraphic);
+  });
+  graphicsLayer.add(polygonGraphic);
 
         // Create a GraphicsLayer
         const graphicsLayer = new GraphicsLayer();
@@ -145,7 +132,7 @@
           }
         };
 
-        const pointPopupTemplate = {
+        const popupTemplate = {
           title: "{Name}",
           content: `
             <p>{Description}</p>
@@ -153,7 +140,7 @@
           `
         };
 
-        const pointAttributes = {
+        const attributes = {
           Name: "Downtown San Francisco Shopping Area",
           Description: "The store I marked in my first lab: Angelic Pretty USA"
         };
