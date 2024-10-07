@@ -139,6 +139,8 @@
             <b>Name:</b> {INSTNM}<br>
             <b>Website URL:</b> {WEBADDR}<br>
             <b>University Hospital:</b> {HOSPITAL}<br>
+            <b>Institution Size:</b> {INSTSIZE}<br>
+            <b>Degree Years Offered:</b> {ICLEVEL}<br>
             <img src="https://www.freevector.com/uploads/vector/preview/28149/EducationBackground_Preview_02.jpg" alt="University Image" style="width:100%;height:auto;">
           `
         }
@@ -148,7 +150,7 @@
           url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
 
           // Adding the popup here
-          outFields: ["INSTNM", "WEBADDR"],
+          outFields: ["INSTNM", "WEBADDR", "HOSPITAL", "INSTSIZE", "ICLEVEL"],
           popupTemplate: popupEduusa
         });
 
