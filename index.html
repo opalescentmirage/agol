@@ -134,21 +134,25 @@
 
         // Define a pop-up for usaeduLayer
         const popupEduusa = {
-        "title": "University Information",
-        "content": "<b>Name:</b> {INSTNM}<br><b>Website URL:</b> {WEBADDR}<br>"
-      }
+          "title": "University Information",
+          "content": `
+            <b>Name:</b> {INSTNM}<br>
+            <b>Website URL:</b> {WEBADDR}<br>
+            <img src="https://i.pinimg.com/736x/53/75/97/537597c41c623441b566fc25e07a6196.jpg" alt="University Image" style="width:100%;height:auto;">
+          `
+        }
 
-      //adding the Const for the feature layer
-      const usaeduLayer = new FeatureLayer({
-      url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
+        // Adding the Const for the feature layer
+        const usaeduLayer = new FeatureLayer({
+          url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
 
-      //adding the popup here
-      outFields: ["NAME","WEBADDR"],
-      popupTemplate: popupEduusa
-      });
+          // Adding the popup here
+          outFields: ["INSTNM", "WEBADDR"],
+          popupTemplate: popupEduusa
+        });
 
-      //adding the feature layer to the map
-      map.add(usaeduLayer);
+        // Adding the feature layer to the map
+        map.add(usaeduLayer);
 
       // Create a polygon geometry
       const polygon = {
