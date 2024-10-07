@@ -132,6 +132,23 @@
         // Add the graphics to the graphics layer
         graphicsLayer.add(pointGraphic);
 
+        //define a pop-up for airports
+        const popupairports = {
+          "title": "Airport Information"
+        }
+
+        // Adding the Const for the feature layer
+        const airportsLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Jackie_Airports/FeatureServer",
+
+          // Adding the popup here
+          outFields: ["NAME", "CITY"],
+          popupTemplate: popupairports
+        });
+
+        // Adding the feature layer to the map
+        map.add(airportsLayer);
+
         // Define a pop-up for usaeduLayer
         const popupEduusa = {
           "title": "University Information",
