@@ -149,14 +149,21 @@
       }
     };
 
+    const polygonpopupTemplate = {
+    title: "{Name}",
+    content: "{Description}"
+    };
+
     const polygonGraphic = new Graphic({
     geometry: polygon,
-    symbol: simpleFillSymbol
+    symbol: simpleFillSymbol,
+
+    popupTemplate: polygonpopupTemplate
 
     });
     graphicsLayer.add(polygonGraphic);
     });
-    
+
   </script>
 
   <!-- css to make a full screen map -->
