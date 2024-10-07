@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Hello, Map!</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="" />
-
-  <!-- calls for the arcgis api's CSS file and JS library. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map View</title>
   <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    html, body, #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
   <script src="https://js.arcgis.com/4.25/"></script>
-
-  <!-- Adding the modules, API key, and map constant needed for a full screen map app -->
+</head>
+<body>
+  <div id="viewDiv"></div>
   <script>
-  
     require([
-     "esri/config",
+      "esri/config",
       "esri/Map",
       "esri/views/MapView",
       "esri/layers/GraphicsLayer",
       "esri/Graphic",
-
-      //adding in the module for the feature layers
       "esri/layers/FeatureLayer"
-
-    ], function (esriConfig,Map, MapView, GraphicsLayer, Graphic, FeatureLayer) {
+    ], function (esriConfig, Map, MapView, GraphicsLayer, Graphic, FeatureLayer) {
 
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurEBCF4Df63a-YurcgYiKsA257-YwJjUZ7VmQmAf85Pv0s_EugjZNpILdzuTGz5_niIqE_mzayhjw24rnHm6Pdw8JaycqArdv2eX03OS-opbH-AIGcrqcYehVIiBC0ZYFXZW3ZhFbVTTRBaXdq4wI0mQ3YUABZAX6ZXoPdTYnx3d_ySFymzZjYbo5JIEaGqrkE8VRBIk5AHyuqzYKhbg1g5c.AT1_4I1ezPDs";
       const map = new Map({
@@ -31,209 +34,103 @@
       });
 
       const view = new MapView({
-          map: map,
-            center: [-122.4194, 37.7749], // Longitude, latitude of San Francisco
-          zoom: 13, // Zoom level
-          container: "viewDiv" // Div element
-        });
+        map: map,
+        center: [-122.403668, 37.788126], // Longitude, latitude of San Francisco
+        zoom: 15, // Zoom level
+        container: "viewDiv" // Div element
+      });
 
-        // First create a line geometry (this is Kearny Street in San Francisco)
-  const polyline = {
-    type: "polyline", // autocasts as new Polyline()
-    paths: [[-122.404453, 37.792652], [-122.404078, 37.790794], [-122.403515, 37.787965]]
-  };
+      // Create a GraphicsLayer
+      const graphicsLayer = new GraphicsLayer();
+      map.add(graphicsLayer);
 
-  // Create a symbol for drawing the line
-  const lineSymbol = {
-    type: "simple-line", // autocasts as SimpleLineSymbol()
-    color: [0, 0, 128],
-    width: 4
-  };
+      // Create a point geometry
+      const point = {
+        type: "point",
+        longitude: -122.403668, // Longitude of AP USA
+        latitude: 37.788126 // Latitude of AP USA
+      };
 
-  // Create an object for storing attributes related to the line
-  const lineAtt = {
-    Name: "Kearny Street",
-    Owner: "California",
-    Length: "1.2 miles"
-  };
-
-  const polylineGraphic = new Graphic({
-    geometry: polyline,
-    symbol: lineSymbol,
-    attributes: lineAtt,
-    popupTemplate: {
-      // autocasts as new PopupTemplate()
-      title: "{Name}",
-      content: [
-        {
-          type: "fields",
-          fieldInfos: [
-            {
-              fieldName: "Name"
-            },
-            {
-              fieldName: "Owner"
-            },
-            {
-              fieldName: "Length"
-            }
-          ]
+      // Create a symbol for drawing the point
+      const simpleMarkerSymbol = {
+        type: "simple-marker",
+        style: "triangle", // Change the style to triangle
+        color: [255, 182, 193], // Light Pink
+        outline: {
+          color: [114, 47, 55], // Wine
+          width: 1
         }
-      ]
-    }
-  });
+      };
 
-  // Add the line graphic to the view's GraphicsLayer
-  view.graphics.add(polylineGraphic);
+      // Popup template for the point
+      const pointPopupTemplate = {
+        title: "{Name}",
+        content: `
+          <b>Description:</b> {Description}<br>
+          <img src="https://images1.loopnet.com/i2/LZqcawV8XqJq3kCz6zYG6Dpg7FXwiFekwwRbyzhInXk/112/image.jpg" alt="Downtown San Francisco Shopping Area" style="width:100%;height:auto;">
+        `
+      };
 
-        // Create a GraphicsLayer
-        const graphicsLayer = new GraphicsLayer();
-        map.add(graphicsLayer);
+      // Attributes for the point
+      const pointAttributes = {
+        Name: "Downtown San Francisco Shopping Area",
+        Description: "The store I marked in my first lab: Angelic Pretty USA"
+      };
 
-        // Create a point geometry
-        const point = {
-          type: "point",
-          longitude: -122.403668, //long lat of AP USA
-          latitude: 37.788126
-        };
+      // Create a graphic and add the geometry and symbol to it
+      const pointGraphic = new Graphic({
+        geometry: point,
+        symbol: simpleMarkerSymbol,
+        attributes: pointAttributes,
+        popupTemplate: pointPopupTemplate
+      });
 
-        // Create a symbol for drawing the point
-        const simplemarkerSymbol = {
-          type: "simple-marker",
-          style: "triangle", // challenge 1 - change the style to triangle
-            color: [255, 182, 193], // Light Pink
-          outline: {
-            color: [114, 47, 55], // Wine
-            width: 1
-          }
-        };
+      // Add the graphics to the graphics layer
+      graphicsLayer.add(pointGraphic);
 
-        const popupTemplate = {
-          title: "{Name}",
-          content: `
-            <p>{Description}</p>
-            <img src="https://images1.loopnet.com/i2/LZqcawV8XqJq3kCz6zYG6Dpg7FXwiFekwwRbyzhInXk/112/image.jpg" alt="Downtown San Francisco Shopping Area" style="width:100%;height:auto;">
-          `
-        };
+      // Define a pop-up for airportsLayer
+      const popupairports = {
+        title: "Airport Information",
+        content: `
+          <b>Elevation:</b> {Elevation}<br>
+          <b>City:</b> {City}<br>
+          <img src="https://st2.depositphotos.com/1007566/6744/v/6744.jpg" alt="Airport Image" style="width:100%;height:auto;">
+        `
+      };
 
-        const attributes = {
-          Name: "Downtown San Francisco Shopping Area",
-          Description: "The store I marked in my first lab: Angelic Pretty USA"
-        };
+      // Adding the feature layer for airports
+      const airportsLayer = new FeatureLayer({
+        url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Airports/FeatureServer",
+        outFields: ["Elevation", "City"],
+        popupTemplate: popupairports
+      });
 
-        // Create a graphic and add the geometry and symbol to it
-        const pointGraphic = new Graphic({
-          geometry: point,
-          symbol: simplemarkerSymbol,
-          attributes: attributes,
-          popupTemplate: popupTemplate
-        });
+      // Adding the feature layer to the map
+      map.add(airportsLayer);
 
-        // Add the graphics to the graphics layer
-        graphicsLayer.add(pointGraphic);
+      // Define a pop-up for usaeduLayer
+      const popupEduusa = {
+        title: "University Information",
+        content: `
+          <b>Name:</b> {INSTNM}<br>
+          <b>Website URL:</b> {WEBADDR}<br>
+          <b>University Hospital:</b> {HOSPITAL}<br>
+          <b>Institution Size:</b> {INSTSIZE}<br>
+          <b>Degree Years Offered:</b> {ICLEVEL}<br>
+          <img src="https://www.freevector.com/uploads/vector/preview/28149/EducationBackground_Preview_02.jpg" alt="University Image" style="width:100%;height:auto;">
+        `
+      };
 
-        //define a pop-up for airports
-        const popupairports = {
-          "title": "Airport Information",
-          "content": `
-            <b>Elevation:</b> {Elevation}<br>
-            <b>City:</b> {City}<br>
-            <img src="https://st2.depositphotos.com/1007566/6744/v/450/depositphotos_67442867-stock-illustration-airport-terminal.jpg" alt="Airport Image" style="width:100%;height:auto;">
-          `
-        }
+      // Adding the feature layer for universities
+      const usaeduLayer = new FeatureLayer({
+        url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
+        outFields: ["INSTNM", "WEBADDR", "HOSPITAL", "INSTSIZE", "ICLEVEL"],
+        popupTemplate: popupEduusa
+      });
 
-        // Adding the Const for the feature layer
-        const airportsLayer = new FeatureLayer({
-          url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Jackie_Airports/FeatureServer",
-
-          // Adding the popup here
-          outFields: ["Elevation", "City"],
-          popupTemplate: popupairports
-        });
-
-        // Adding the feature layer to the map
-        map.add(airportsLayer);
-
-        // Define a pop-up for usaeduLayer
-        const popupEduusa = {
-          "title": "University Information",
-          "content": `
-            <b>Name:</b> {INSTNM}<br>
-            <b>Website URL:</b> {WEBADDR}<br>
-            <b>University Hospital:</b> {HOSPITAL}<br>
-            <b>Institution Size:</b> {INSTSIZE}<br>
-            <b>Degree Years Offered:</b> {ICLEVEL}<br>
-            <img src="https://www.freevector.com/uploads/vector/preview/28149/EducationBackground_Preview_02.jpg" alt="University Image" style="width:100%;height:auto;">
-          `
-        }
-
-        // Adding the Const for the feature layer
-        const usaeduLayer = new FeatureLayer({
-          url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
-
-          // Adding the popup here
-          outFields: ["INSTNM", "WEBADDR", "HOSPITAL", "INSTSIZE", "ICLEVEL"],
-          popupTemplate: popupEduusa
-        });
-
-        // Adding the feature layer to the map
-        map.add(usaeduLayer);
-
-      // Create a polygon geometry
-      const polygon = {
-        type: "polygon",
-        rings: [
-        [-122.420701, 37.808258], //Longitude, latitude
-        [-122.398108, 37.799543], //Longitude, latitude
-        [-122.412831, 37.792100], //Longitude, latitude
-        [-122.426879, 37.796531], //Longitude, latitude
-        [-122.424540, 37.805737]  //Longitude, latitude
-       ]
-    };
-
-    const simpleFillSymbol = {
-    type: "simple-fill",
-    color: [135, 206, 235, 0.8],  // Sky blue, opacity 80%
-    outline: {
-        color: [120, 81, 169],
-        width: 1
-      }
-    };
-
-    const polygonpopupTemplate = {
-    title: "San Francisco Bay Area",
-    content: "This is where shopping is done!"
-    };
-
-    const polygonGraphic = new Graphic({
-    geometry: polygon,
-    symbol: simpleFillSymbol,
-
-    popupTemplate: polygonpopupTemplate
-
+      // Adding the feature layer to the map
+      map.add(usaeduLayer);
     });
-    graphicsLayer.add(polygonGraphic);
-    });
-
   </script>
-
-  <!-- css to make a full screen map -->
-  <style>
-    html,
-    body,
-    #viewDiv {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-    }
-  </style>
-
-</head>
-<body>
-
-  <!-- the div to displays the map  -->
-  <div id="viewDiv"></div>
-
 </body>
 </html>
