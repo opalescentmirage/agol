@@ -134,7 +134,12 @@
 
         //define a pop-up for airports
         const popupairports = {
-          "title": "Airport Information"
+          "title": "Airport Information",
+          "content": `
+            <b>Elevation:</b> {Elevation}<br>
+            <b>City:</b> {City}<br>
+            <img src="https://st2.depositphotos.com/1007566/6744/v/450/depositphotos_67442867-stock-illustration-airport-terminal.jpg" alt="Airport Image" style="width:100%;height:auto;">
+          `
         }
 
         // Adding the Const for the feature layer
@@ -142,7 +147,7 @@
           url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Jackie_Airports/FeatureServer",
 
           // Adding the popup here
-          outFields: ["NAME", "CITY"],
+          outFields: ["Elevation", "City"],
           popupTemplate: popupairports
         });
 
