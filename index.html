@@ -142,54 +142,14 @@
           `
         }
 
-        //setting up the icon
-        const airportRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "picture-marker",
-          "url": "https://sounny.github.io/agol/outline_local_airport_black_24dp.png",
-          "width": "18px",
-          "height": "18px"
-        }
-      }
-
         // Adding the Const for the feature layer
         const airportsLayer = new FeatureLayer({
           url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Jackie_Airports/FeatureServer",
-          renderer: airportRenderer, //caling the icon
 
           // Adding the popup here
           outFields: ["Elevation", "City"],
           popupTemplate: popupairports
         });
-
-        // Adding the feature layer to the map
-        map.add(airportsLayer);
-
-        // Define a pop-up for usaeduLayer
-        const popupEduusa = {
-          "title": "University Information",
-          "content": `
-            <b>Name:</b> {INSTNM}<br>
-            <b>Website URL:</b> {WEBADDR}<br>
-            <b>University Hospital:</b> {HOSPITAL}<br>
-            <b>Institution Size:</b> {INSTSIZE}<br>
-            <b>Degree Years Offered:</b> {ICLEVEL}<br>
-            <img src="https://www.freevector.com/uploads/vector/preview/28149/EducationBackground_Preview_02.jpg" alt="University Image" style="width:100%;height:auto;">
-          `
-        }
-
-        // Adding the Const for the feature layer
-        const usaeduLayer = new FeatureLayer({
-          url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
-
-          // Adding the popup here
-          outFields: ["INSTNM", "WEBADDR", "HOSPITAL", "INSTSIZE", "ICLEVEL"],
-          popupTemplate: popupEduusa
-        });
-
-        // Adding the feature layer to the map
-        map.add(usaeduLayer);
 
       // Create a polygon geometry
       const polygon = {
