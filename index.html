@@ -18,8 +18,12 @@
       "esri/Map",
       "esri/views/MapView",
       "esri/layers/GraphicsLayer",
-      "esri/Graphic"
-    ], function (esriConfig,Map, MapView, GraphicsLayer, Graphic) {
+      "esri/Graphic",
+
+      //adding in the module for the feature layers
+      "esri/layers/FeatureLayer"
+
+    ], function (esriConfig,Map, MapView, GraphicsLayer, Graphic, FeatureLayer) {
 
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurEBCF4Df63a-YurcgYiKsA257-YwJjUZ7VmQmAf85Pv0s_EugjZNpILdzuTGz5_niIqE_mzayhjw24rnHm6Pdw8JaycqArdv2eX03OS-opbH-AIGcrqcYehVIiBC0ZYFXZW3ZhFbVTTRBaXdq4wI0mQ3YUABZAX6ZXoPdTYnx3d_ySFymzZjYbo5JIEaGqrkE8VRBIk5AHyuqzYKhbg1g5c.AT1_4I1ezPDs";
       const map = new Map({
@@ -127,6 +131,13 @@
 
         // Add the graphics to the graphics layer
         graphicsLayer.add(pointGraphic);
+
+        const usaeduLayer = new FeatureLayer({
+        url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer" //get URL from AGOL Item Page
+        });
+        
+        //adding the feature layer to the map
+        map.add(usaeduLayer);
 
       // Create a polygon geometry
       const polygon = {
