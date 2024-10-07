@@ -63,7 +63,7 @@
       };
 
       // Popup template for the point
-      const pointPopupTemplate = {
+      const popupTemplate = {
         title: "{Name}",
         content: `
           <b>Description:</b> {Description}<br>
@@ -72,7 +72,7 @@
       };
 
       // Attributes for the point
-      const pointAttributes = {
+      const attributes = {
         Name: "Downtown San Francisco Shopping Area",
         Description: "The store I marked in my first lab: Angelic Pretty USA"
       };
@@ -81,8 +81,8 @@
       const pointGraphic = new Graphic({
         geometry: point,
         symbol: simpleMarkerSymbol,
-        attributes: pointAttributes,
-        popupTemplate: pointPopupTemplate
+        attributes: attributes,
+        popupTemplate: popupTemplate
       });
 
       // Add the graphics to the graphics layer
